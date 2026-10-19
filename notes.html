@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Behind the Build - Notes</title>
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+            line-height: 1.6; 
+            color: #333; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 40px 20px; 
+            background-color: #f4f7f6; 
+        }
+        h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #2c3e50; margin-top: 30px; font-size: 1.4rem; border-bottom: 1px solid #ccc; padding-bottom: 5px; }
+        .note-card { background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-top: 20px; }
+        p { margin-bottom: 15px; }
+        strong { color: #2c3e50; }
+        ul { margin-bottom: 15px; padding-left: 20px; }
+        li { margin-bottom: 5px; }
+        a { color: #3498db; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .back-link { display: inline-block; margin-top: 30px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h1>Behind the Build</h1>
+    <p><strong>App Link:</strong> <a href="https://jekasap.github.io/Garage-App/" target="_blank">https://jekasap.github.io/Garage-App/</a></p>
+    <p><strong>Case G:</strong> Kehoe's Garage (Car repair garage, Enniscorthy, Co. Wexford)</p>
+
+    <div class="note-card">
+        <h2>"Hunch (before AI)"</h2>
+        <p><strong>Who would pay for a generic version of this solution, and why?</strong><br>
+        Any mid to large garage service, because it will improve waiting times and free up the service workers from admin work and let them focus on moving the car quicker.</p>
+    </div>
+
+    <div class="note-card">
+        <h2>Task 1: Market & Business Model</h2>
+        <p><strong>Niche:</strong> Family-run, independent automotive garages in rural Ireland (2–5 mechanics).</p>
+        <p><strong>The buyer:</strong> The garage owner.</p>
+        <p><strong>User:</strong> The mechanics (on a shared tablet), the office manager, the customer.</p>
+        <p><strong>Their pain (Invented):</strong> Mechanics stop their work, wash their hands, answer the phone 60 times a day just to say the car is still being assessed.</p>
+        <p><strong>Technology:</strong> A job tracker and customer status portal.</p>
+        <p><strong>How they handle it today:</strong> Whiteboards, paper diaries, memory, and manual phone calls.</p>
+        
+        <p><strong>Competitors:</strong></p>
+        <ul>
+            <li><a href="https://garagehive.co.uk/" target="_blank">Garage Hive</a> (Checked October 19, 2026)</li>
+            <li><a href="https://www.mamsoftware.ie/" target="_blank">MAM Software Autowork Online</a> (Checked October 19, 2026)</li>
+        </ul>
+
+        <p><strong>Business Model:</strong> A €250 upfront set-up fee, plus a €49/month subscription.</p>
+        <p><strong>Reasoning (Assumption):</strong> The set-up fee covers the physical cost and delivery of a cheap, rugged Android tablet and wall mount for the workshop, while the €49 monthly fee is a no-brainer because it is instantly offset by saving 90 minutes of mechanic labour per day.</p>
+        
+        <p><strong>Lean PRD:</strong></p>
+        <ul>
+            <li><strong>Hypothesis:</strong> Independent rural garages will pay €49/month for a simple, visual job tracker that stops customers from calling for updates.</li>
+            <li><strong>Audience:</strong> Garage owners and office managers in Ireland overwhelmed by administrative check-in calls.</li>
+            <li><strong>Call to Action:</strong> "Join Waitlist" / "Try the Interactive Demo"</li>
+            <li><strong>Success Metric:</strong> 10 paid sign-ups from a targeted email campaign within 30 days.</li>
+            <li><strong>Out of scope:</strong> Invoicing, payment processing, accounting, and parts ordering.</li>
+        </ul>
+    </div>
+
+    <div class="note-card">
+        <h2>Task 2: Alpha Test Notes</h2>
+        
+        <p><strong>What I tried:</strong><br>
+        I tested the app on my phone to see how a mechanic would use it. I tapped the buttons to move cars into different stages, and then I refreshed the web page to ensure the changes stayed there and that the progress was properly saved.</p>
+        
+        <p><strong>One thing that broke or confused me:</strong><br>
+        When I first loaded the prototype, it was completely broken. The screen only showed the three navigation tabs at the top, but the "Workshop" area was completely blank and none of the cars loaded.</p>
+        
+        <p><strong>What I changed:</strong><br>
+        I found out this was happening because the browser was either blocking the `localStorage` or struggling with corrupted old memory. I updated the Javascript to wrap the storage code in a `try...catch` block and used a fresh storage key. This fixed the bug, allowing the sample data to load perfectly and ensuring it successfully stayed there after a refresh.</p>
+    </div>
+
+    <a href="index.html" class="back-link">← Back to Landing Page</a>
+
+</body>
+</html>
