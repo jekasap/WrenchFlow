@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WrenchFlow | Stop the Constant Phone Calls</title>
+    <style>
+        /* CSS Reset & Variables */
+        :root {
+            --brand-dark: #1e293b; /* Slate 800 */
+            --brand-darker: #0f172a; /* Slate 900 */
+            --brand-light: #f8fafc; /* Slate 50 */
+            --brand-accent: #2563eb; /* Blue 600 */
+            --brand-accent-hover: #1d4ed8; /* Blue 700 */
+            --text-main: #334155; /* Slate 700 */
+            --text-muted: #64748b; /* Slate 500 */
+            --white: #ffffff;
+            --orange: #f97316;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--brand-light);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        img { max-width: 100%; height: auto; }
+        
+        /* Layout */
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Typography */
+        h1, h2, h3 { color: var(--brand-darker); font-weight: 800; line-height: 1.2; }
+        p { margin-bottom: 1rem; }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            background-color: var(--brand-accent);
+            color: var(--white);
+            padding: 14px 28px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .btn:hover { background-color: var(--brand-accent-hover); }
+        .btn:active { transform: translateY(2px); }
+        .btn-outline {
+            background-color: transparent;
+            color: var(--brand-accent);
+            border: 2px solid var(--brand-accent);
+        }
+        .btn-outline:hover {
+            background-color: var(--brand-accent);
+            color: var(--white);
+        }
+        .btn-large { width: 100%; padding: 18px; font-size: 1.2rem; }
+
+        /* --- Header --- */
+        header {
+            background-color: var(--white);
+            padding: 20px 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--brand-darker); text-decoration: none; letter-spacing: -0.5px; }
+        .logo span { color: var(--brand-accent); }
+
+        /* --- Hero Section --- */
+        .hero {
+            background-color: var(--brand-darker);
+            color: var(--white);
+            padding: 60px 0 80px;
+            text-align: center;
+        }
+        .hero h1 { color: var(--white); font-size: 2.5rem; margin-bottom: 20px; }
+        .hero p { font-size: 1.2rem; color: #cbd5e1; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        
+        /* --- Problem Section --- */
+        .problem { padding: 60px 0; background-color: var(--white); }
+        .quote-box {
+            background-color: var(--brand-light);
+            border-left: 6px solid var(--orange);
+            padding: 30px;
+            border-radius: 0 12px 12px 0;
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--brand-dark);
+            margin: 0 auto;
+            max-width: 800px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .quote-author {
+            display: block;
+            margin-top: 15px;
+            font-size: 1rem;
+            font-style: normal;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        /* --- How It Works Section --- */
+        .how-it-works { padding: 60px 0; text-align: center; }
+        .how-it-works h2 { font-size: 2rem; margin-bottom: 40px; }
+        .steps-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        .step-card {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            flex: 1;
+        }
+        .step-icon { font-size: 3rem; margin-bottom: 15px; }
+        .step-card h3 { font-size: 1.3rem; margin-bottom: 10px; }
+
+        /* --- Pricing Section --- */
+        .pricing { padding: 60px 0; background-color: var(--white); text-align: center; }
+        .pricing-card {
+            background-color: var(--brand-light);
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 40px 20px;
+            max-width: 450px;
+            margin: 0 auto;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+        .price-huge { font-size: 3.5rem; font-weight: 800; color: var(--brand-darker); line-height: 1; margin: 20px 0; }
+        .price-huge span { font-size: 1.2rem; font-weight: 500; color: var(--text-muted); }
+        .pricing-details { list-style: none; padding: 0; margin: 30px 0; text-align: left; }
+        .pricing-details li { margin-bottom: 15px; font-size: 1.1rem; padding-left: 30px; position: relative; }
+        .pricing-details li::before {
+            content: "✓"; position: absolute; left: 0; color: var(--brand-accent); font-weight: bold;
+        }
+
+        /* --- Waitlist / CTA Section --- */
+        .cta-section { background-color: var(--brand-accent); color: var(--white); padding: 80px 0; text-align: center; }
+        .cta-section h2 { color: var(--white); font-size: 2rem; margin-bottom: 20px; }
+        .waitlist-form { max-width: 400px; margin: 0 auto; background: var(--white); padding: 30px; border-radius: 12px; }
+        .form-group { margin-bottom: 15px; text-align: left; }
+        .form-group label { display: block; color: var(--brand-dark); font-weight: 600; margin-bottom: 5px; }
+        .form-group input { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; }
+        
+        #thank-you-msg {
+            display: none;
+            background: #dcfce7;
+            color: #166534;
+            padding: 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 20px;
+        }
+
+        /* --- Footer --- */
+        footer { background-color: var(--brand-darker); color: var(--text-muted); padding: 40px 0; text-align: center; font-size: 0.9rem; }
+        footer a { color: var(--brand-light); text-decoration: none; margin-top: 15px; display: inline-block; }
+        footer a:hover { text-decoration: underline; }
+
+        /* --- Desktop Media Queries --- */
+        @media (min-width: 768px) {
+            .hero h1 { font-size: 3.5rem; }
+            .steps-grid { flex-direction: row; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <a href="#" class="logo">Wrench<span>Flow</span></a>
+            <a href="https://jekasap.github.io/Garage-App/" target="_blank" class="btn btn-outline">Try the Demo</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Stop the constant phone calls.</h1>
+            <p>A simple, rugged job tracker built exclusively for independent rural garages in Ireland. Give your customers peace of mind without picking up the phone.</p>
+            <a href="https://jekasap.github.io/Garage-App/" target="_blank" class="btn btn-large" style="max-width: 300px;">Try the Live Demo</a>
+        </div>
+    </section>
+
+    <!-- The Problem Section -->
+    <section class="problem">
+        <div class="container">
+            <div class="quote-box">
+                "I'm paying my mechanics to turn wrenches, not answer the phone fifty times a day just to say a car is still on the lift."
+                <span class="quote-author">— The reality for independent garage owners</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2>How it works</h2>
+            <div class="steps-grid">
+                <!-- Step 1 -->
+                <div class="step-card">
+                    <div class="step-icon">📱</div>
+                    <h3>1. Tap the Tablet</h3>
+                    <p>When a car moves from "Being checked" to "Being fixed", your mechanic taps the wall-mounted tablet. Greasy hands? No problem. The buttons are huge.</p>
+                </div>
+                <!-- Step 2 -->
+                <div class="step-card">
+                    <div class="step-icon">🔍</div>
+                    <h3>2. Customers Check Online</h3>
+                    <p>Customers go to your website and enter their Job ID and Registration. They see exactly what stage their car is at, in plain English.</p>
+                </div>
+                <!-- Step 3 -->
+                <div class="step-card">
+                    <div class="step-icon">🔧</div>
+                    <h3>3. You Fix More Cars</h3>
+                    <p>The phone stops ringing. Your mechanics aren't interrupted. Cars get fixed faster, and your customers are happier.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing">
+        <div class="container">
+            <h2>Simple, transparent pricing</h2>
+            <p style="margin-bottom: 40px; color: var(--text-muted);">It pays for itself by saving just 90 minutes of mechanic time a day.</p>
+            
+            <div class="pricing-card">
+                <h3>Garage Subscription</h3>
+                <div class="price-huge">€49<span>/mo</span></div>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">+ €250 one-time setup fee</p>
+                
+                <ul class="pricing-details">
+                    <li><strong>Includes rugged workshop tablet</strong></li>
+                    <li><strong>Includes secure wall mount</strong></li>
+                    <li>Unlimited workshop jobs</li>
+                    <li>Customer status lookup portal</li>
+                    <li>Office manager dashboard</li>
+                    <li>Voice notes (Planned Feature)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Waitlist CTA -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to quiet the phones?</h2>
+            <p style="margin-bottom: 30px;">We are currently launching our alpha version. Join the waitlist to secure your spot.</p>
+            
+            <form id="waitlist-form" class="waitlist-form">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" required placeholder="e.g. Tom Kehoe">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" required placeholder="tom@examplegarage.ie">
+                </div>
+                <button type="submit" class="btn btn-large" style="width: 100%; margin-top: 10px;">Join Waitlist</button>
+            </form>
+
+            <div id="thank-you-msg">
+                Thank you for joining the waitlist! We will be in touch soon.
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>WrenchFlow is an alpha product designed for independent Irish garages.</p>
+            <p>&copy; 2026 WrenchFlow. All rights reserved.</p>
+            <br>
+            <a href="notes.html" style="text-decoration: underline;">Behind the build</a>
+        </div>
+    </footer>
+
+    <!-- Form Handling Script -->
+    <script>
+        document.getElementById('waitlist-form').addEventListener('submit', function(event) {
+            // Prevent the form from actually sending data
+            event.preventDefault();
+            
+            // Hide the form
+            this.style.display = 'none';
+            
+            // Show the thank you message
+            document.getElementById('thank-you-msg').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
